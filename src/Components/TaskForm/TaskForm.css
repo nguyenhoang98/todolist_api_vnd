@@ -1,0 +1,42 @@
+.TaskForm{
+    margin-top:50px ;
+}
+.TaskForm__input{
+    flex-basis: 50%;
+    position: relative;
+}
+.TaskForm__control{
+    flex-basis: 48%;
+}
+.TaskForm__input__action{
+    width:100% ;
+    height: auto;
+    background: #ccc;
+    border-radius: 3px;
+    border:none ;
+    outline: none;
+    padding:6px ;
+    font-size: 14px ;
+    border:none ;
+    outline: none;
+    border-bottom: 1px solid #ccc ;
+}
+/*  */
+.TaskForm__control__sort , 
+.TaskForm__control__filter{
+    flex-basis: 49% ;
+}
+select{
+    width:100% ;
+    padding:6px ;
+    background : #ccc ;
+    border:none  ;
+}
+
+.plusImg{
+    width:20px ;
+    height: 20px;
+    position: absolute;
+    top:5px ;
+    right:5px ;
+}
