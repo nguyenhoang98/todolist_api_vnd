@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import "./TaskContainer.css";
+import "./TaskWrap.css";
 import TaskForm from "../TaskForm/TaskForm";
-import TaskList from "../TaskList/TaskList";
-import axios from "axios";
+import TaskListContainer from "../../Containers/TaskListContainer/TaskListContainer";
 import qs from "query-string";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import handleAxios from "../../axiosServices/handleAxios";
 const url = "https://znm70.sse.codesandbox.io/tasks";
-class TaskContainer extends Component {
+class TaskWrap extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,8 +26,7 @@ class TaskContainer extends Component {
   }
   componentDidMount() {
     const { q } = this.props;
-    axios
-      .get(`${url}?${q}`)
+    handleAxios(`${url}?${q}`, "GET")
       .then((res) => {
         this.setState({
           tasks: res.data,
@@ -40,8 +39,7 @@ class TaskContainer extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps) {
       const query = qs.stringify(nextProps);
-      axios
-        .get(`${url}?${query}`)
+      handleAxios(`${url}?${query}`, "GET")
         .then((res) => {
           this.setState({
             tasks: res.data,
@@ -78,7 +76,7 @@ class TaskContainer extends Component {
   addTasks(data) {
     data.id = this.createID();
     data.status = false;
-    axios.post("https://znm70.sse.codesandbox.io/tasks", data);
+    handleAxios(url, "POST", data);
     const newTasks = [...this.state.tasks];
     newTasks.push(data);
     this.setState({
@@ -88,7 +86,7 @@ class TaskContainer extends Component {
   }
   onDeleteTask(data) {
     const index = this.findindex(data.id);
-    axios.delete(`https://znm70.sse.codesandbox.io/tasks/${data.id}`);
+    handleAxios(`${url}/${data.id}`, "DELETE");
     const newTasks = [...this.state.tasks];
     newTasks.splice(index, 1);
     this.setState({
@@ -102,7 +100,7 @@ class TaskContainer extends Component {
     });
     if (this.state.selectedID === data.id) {
       const index = this.findindex(data.id);
-      axios.put(`https://znm70.sse.codesandbox.io/tasks/${data.id}`, {
+      handleAxios(`${url}/${data.id}`, "PUT", {
         ...data,
         status: !data.status,
       });
@@ -119,7 +117,7 @@ class TaskContainer extends Component {
   }
   updateTask(data) {
     const index = this.findindex(data.id);
-    axios.put(`https://znm70.sse.codesandbox.io/tasks/${data.id}`, data);
+    handleAxios(`${url}/${data.id}`, "PUT", data);
     const newTasks = [...this.state.tasks];
     newTasks[index] = data;
     this.setState({
@@ -179,7 +177,7 @@ class TaskContainer extends Component {
           filterTasks={filterTasks}
           handleFilterTasks={this.handleFilterTasks}
         />
-        <TaskList
+        <TaskListContainer
           tasks={tasks}
           handleOnDeleteTask={this.onDeleteTask}
           handleToggleStatus={this.handleToggleStatus}
@@ -189,4 +187,4 @@ class TaskContainer extends Component {
     );
   }
 }
-export default TaskContainer;
+export default TaskWrap;

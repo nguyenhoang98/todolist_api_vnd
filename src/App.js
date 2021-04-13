@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import SearchTasks from "./Components/SearchTasks/SearchTasks";
 import Clock from "./Components/Clock/Clock";
-import TaskContainer from "./Components/TaskContainer/TaskContainer";
+import TaskWrap from "./Components/TaskWrap/TaskWrap";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 class App extends Component {
@@ -24,7 +24,7 @@ class App extends Component {
       <div className="app">
         <Clock />
         <SearchTasks changeApiFilterTasks={this.changeApiFilterTasks} />
-        <TaskContainer q={q} />
+        <TaskWrap q={q} />
         <ToastContainer />
       </div>
     );

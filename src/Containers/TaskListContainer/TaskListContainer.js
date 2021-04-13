@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./TaskList.css";
-import TaskItem from "../TaskItem/TaskItem";
-class TaskList extends Component {
+import "./TaskListContainer.css";
+import TaskItem from "../../Components/TaskItem/TaskItem";
+class TaskListContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -13,7 +13,7 @@ class TaskList extends Component {
       updateTask,
     } = this.props;
     return (
-      <div className="TaskList">
+      <div className="TaskListContainer">
         {tasks.map((value, index) => {
           return (
             <TaskItem
@@ -30,4 +30,4 @@ class TaskList extends Component {
   }
 }
 
-export default TaskList;
+export default TaskListContainer;
