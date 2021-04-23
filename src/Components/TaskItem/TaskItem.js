@@ -7,6 +7,7 @@ class TaskItem extends Component {
     this.state = {
       name: "",
       disabled: true,
+      time: new Date().getTime(),
     };
     this.handleOnchange = this.handleOnchange.bind(this);
     this.editForm = this.editForm.bind(this);
@@ -50,7 +51,7 @@ class TaskItem extends Component {
   }
   render() {
     const { data, handleOnDeleteTask, handleToggleStatus } = this.props;
-    const { disabled, name } = this.state;
+    const { disabled, name, time } = this.state;
     return (
       <div className="TaskItem flex">
         <div className="TaskItem__name">
@@ -61,7 +62,7 @@ class TaskItem extends Component {
                   style={{
                     textDecoration: data.status ? "line-through" : "none",
                     display: "inline-block",
-                    width: 200,
+                    width: 150,
                   }}
                 >
                   {data.name}
@@ -73,7 +74,7 @@ class TaskItem extends Component {
                   name="name"
                   onChange={this.handleOnchange}
                   style={{
-                    width: 200,
+                    width: 150,
                     border: "none",
                     outline: "none",
                     borderBottom: "1px solid #333",
@@ -85,8 +86,21 @@ class TaskItem extends Component {
         </div>
         <div className="TaskItem__action">
           <span
+            className="TaskItem__action__time"
+            style={{
+              color: "#333",
+              fontSize: 13,
+            }}
+          >
+            {Math.floor(time - data.startTime) / 1000 / 60 < 1
+              ? "Mới đây"
+              : Math.floor((time - data.startTime) / 1000 / 60) + "phút trước"}
+          </span>
+
+          <span
             style={{
               color: data.status ? "blue" : "red",
+              marginLeft: 10,
             }}
             onClick={() => handleToggleStatus(data)}
           >

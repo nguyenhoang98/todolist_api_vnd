@@ -25,8 +25,10 @@ class TaskWrap extends Component {
     this.handleFilterTasks = this.handleFilterTasks.bind(this);
   }
   componentDidMount() {
-    const { q } = this.props;
-    handleAxios(`${url}?${q}`, "GET")
+    const { q, pagination } = this.props;
+    const pagi = qs.stringify(pagination);
+    console.log(`${url}?${pagi}`);
+    handleAxios(`${url}?${pagi}`, "GET")
       .then((res) => {
         this.setState({
           tasks: res.data,
@@ -76,6 +78,7 @@ class TaskWrap extends Component {
   addTasks(data) {
     data.id = this.createID();
     data.status = false;
+    data.startTime = new Date().getTime();
     handleAxios(url, "POST", data);
     const newTasks = [...this.state.tasks];
     newTasks.push(data);
@@ -116,6 +119,7 @@ class TaskWrap extends Component {
     }
   }
   updateTask(data) {
+    data.startTime = new Date().getTime();
     const index = this.findindex(data.id);
     handleAxios(`${url}/${data.id}`, "PUT", data);
     const newTasks = [...this.state.tasks];

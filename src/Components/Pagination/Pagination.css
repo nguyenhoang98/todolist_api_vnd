@@ -1,0 +1,14 @@
+.pagination{
+    margin-top:10px ;
+}
+.pagination a{
+    padding:5px 8px ;
+    display: inline-block;
+    color:black ;
+    margin-right:10px ;
+}
+.pagination__next ,
+.pagination__prev{
+    background : #ccc ;
+    border-radius: 3px;
+}

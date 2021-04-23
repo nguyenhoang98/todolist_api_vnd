@@ -1,4 +1,4 @@
 .TaskListContainer{
     overflow: auto;
-    height: 350px;
+    height: auto ;
 }
